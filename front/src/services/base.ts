@@ -20,7 +20,7 @@ export const api = axios.create({
 });
 
 export const apiFromServerSideEnd = axios.create({
-  baseURL: BASE.URL,
+  baseURL: `${process.env.NEXT_PUBLIC_API_URL}/api`,
   headers: {
     'Content-Type': 'application/json'
   }
