@@ -1,0 +1,4 @@
+.env
+.envlocal
+node_modules
+back
