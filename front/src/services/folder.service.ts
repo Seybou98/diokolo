@@ -166,19 +166,25 @@ export async function downloadFolderPdf(folderId: string) {
       throw new Error('Dossier non trouvé');
     }
 
-    // Rename this response variable to pdfResponse
     const pdfResponse = await fetch(
-      `http://localhost:3002/api/folders/${folderId}/pdf`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/folders/${folderId}/pdf`,
       {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/pdf'
         }
       }
     );
 
     if (!pdfResponse.ok) {
-      throw new Error('Failed to download PDF');
+      const errorData = await pdfResponse.text();
+      console.error('PDF download failed:', {
+        status: pdfResponse.status,
+        statusText: pdfResponse.statusText,
+        error: errorData
+      });
+      throw new Error(`Failed to download PDF: ${pdfResponse.status} ${pdfResponse.statusText}`);
     }
 
     const blob = await pdfResponse.blob();

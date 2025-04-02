@@ -94,6 +94,9 @@ export default function PartnersSection() {
                 "2xl": "450px",
               }}
               rounded="2xl"
+              objectFit="cover" // Add this line
+              width="100%" // Add this line
+              height="100%" // Add this line
             />
             <Text
               position="absolute"
